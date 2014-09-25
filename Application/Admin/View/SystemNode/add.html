@@ -1,0 +1,52 @@
+<div class="pageContent">
+
+    <form method="post" action="__URL__/insert/navTabId/__DWZ__" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxMenu)">
+        <input type="hidden" name="user_id" value="<?php echo $_SESSION[C('USER_AUTH_KEY')] ?>"/>
+        <input type="hidden" name="level" value="{$level}">
+        <input type="hidden" name="pid" value="{$pid}">
+        <div class="pageFormContent" layoutH="58">
+            <div class="unit">
+                <label>模块名：</label>
+                <input type="text" class="required"  name="name">
+            </div>
+
+            <div class="unit">
+                <label>控制器：</label>
+                <input type="text" class="required alphanumeric"  name="controller">
+            </div>
+            <div class="unit">
+                <label>父节点：</label>
+                <SELECT name="pid">
+                    <option value="">未分组</option>
+                    <volist name="list" id="vo">
+                        <option value="{$vo.id}">{$vo.name}</option>
+                    </volist>
+                </SELECT>
+            </div>
+            <div class="unit">
+                <label>级别：</label>
+                <input type="text" class="required number"  name="level" value="1" size="5" />
+            </div>
+            <div class="unit">
+                <label>顺序序号：</label>
+                <input type="text" class="required number"  name="orderIndex"value="100" size="5" />
+            </div>
+            <div class="unit">
+                <label>状态：</label>
+                <SELECT name="status">
+                    <option value="1">启用</option>
+                    <option value="0">禁用</option>
+                </SELECT>
+            </div>
+        </div>
+
+        <div class="formBar">
+            <ul>
+                <li><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li>
+                <li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+            </ul>
+        </div>
+    </form>
+
+</div>
+

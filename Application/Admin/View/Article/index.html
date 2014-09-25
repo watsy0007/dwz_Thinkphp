@@ -1,0 +1,92 @@
+<form id="pagerForm" action="__URL__" method="post">
+	<input type="hidden" name="pageNum" value="{$_REQUEST['pageNum']|default=1}"/>
+	<input type="hidden" name="numPerPage" value="{$numPerPage}"/>
+    <input type="hidden" name="_order" value="{$_REQUEST['_order']}"/>
+	<input type="hidden" name="_sort" value="{$_REQUEST['_sort']|default='1'}"/>
+    <input type="hidden" name="listRows" value="{$_REQUEST['listRows']}"/>
+    <volist name="map" id="m">
+    <input type="hidden" name="{$key}" value="{$_REQUEST[$key]}"/>
+    </volist>
+</form>
+
+
+<div class="page">
+	<div class="pageHeader">
+		<form onsubmit="return navTabSearch(this);" action="__URL__" method="post">
+		<div class="searchBar">
+			<ul class="searchContent">
+				<li>
+					<label>文章标题：</label>
+					<input type="text" name="title" value="{$_REQUEST.title}" class="medium" >
+				</li>
+				<li>
+					<label>状态：</label>
+					<select class="combox" name="status">
+						<option value="">请选择</option>
+						<option value="1" <eq name="_REQUEST.status" value="1">selected=selected</eq>>已审核</option>
+						<option value="0" <eq name="_REQUEST.status" value="0">selected=selected</eq>>未审核</option>
+					</select>
+				</li>
+			</ul>
+			<div class="subBar">
+				<ul>
+					<li><div class="buttonActive"><div class="buttonContent"><button type="submit">查询</button></div></div></li>
+					<li><a class="button" href="__URL__/search" target="dialog" mask="true" title="高级检索"><span>高级检索</span></a></li>
+				</ul>
+			</div>
+		</div>
+		</form>
+	</div>
+
+	<div class="pageContent">
+		<div class="panelBar">
+			<ul class="toolBar">
+				<li><a class="add" href="__URL__/add" target="dialog" mask="true" width="700" height="400"><span>新增</span></a></li>
+				<li><a class="delete" href="__URL__/foreverdelete/id/{sid_node}/navTabId/__DWZ__" target="ajaxTodo"  title="你确定要删除吗？" warn="请选择节点"><span>删除</span></a></li>
+				<li><a class="edit" href="__URL__/edit/id/{sid_node}" target="dialog" mask="true" warn="请选择节点" width="700" height="400"><span>修改</span></a></li>
+				<li><a title="确实要删除这些记录吗?" target="selectedTodo" target="dialog" rel="ids[]" href="__URL__/delAll" class="delete" ><span>批量删除</span></a></li>
+			</ul>
+		</div>
+		<table class="list" width="100%" layoutH="116">
+			<thead>
+			<tr>
+				<th width="60"><input type="checkbox" group="ids[]" class="checkboxCtrl"></th>
+				<th width="100">文章标题</th>
+				<th width="100">文章分类</th>
+				<th width="80" orderField="title">序号</th>
+				<th width="100">状态</th>
+				<th width="100">操作</th>
+			</tr>
+			</thead>
+			<tbody>
+	
+			
+			<volist id="vo" name="list">
+				<tr target="sid_node" rel="{$vo['id']}">
+					<td><input name="ids[]" value="{$vo['id']}" type="checkbox">:{$vo['id']}</td>
+					<td>{$vo['title']}</td>
+					<td>{$cate[$vo['class_id']]}</td>
+					<td>{$vo['sort']}</td>
+					<td>{$vo['status']|getStatus}</td>
+					<td>{$vo['status']|showStatus=$vo['id'],'navTabAjaxDone',"__URL__",'__DWZ__'} <a href="__URL__/edit/id/{$vo['id']}" target="dialog" width="700" height="400">编辑</a> <a href="__URL__/foreverdelete/id/{$vo.id}/navTabId/__DWZ__" target="navTabTodo" title="你确定要删除吗？">删除</a></td>
+				</tr>
+			</volist>
+			
+			</tbody>
+		</table>
+		<div class="panelBar">
+			<div class="pages">
+				<span>显示</span>
+			<select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
+				<option value="5" <eq name="numPerPage" value="5">selected=selected</eq>>5</option>
+				<option value="10" <eq name="numPerPage" value="10">selected=selected</eq>>10</option>
+				<option value="15" <eq name="numPerPage" value="15">selected=selected</eq>>15</option>
+				<option value="20" <eq name="numPerPage" value="20">selected=selected</eq>>20</option>
+			</select>
+				<span>共{$totalCount}条</span>
+
+			</div>
+			<div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+		</div>
+	</div>
+</div>

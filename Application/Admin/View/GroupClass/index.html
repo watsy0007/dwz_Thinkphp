@@ -1,0 +1,71 @@
+<form id="pagerForm" action="__URL__" method="post">
+	<input type="hidden" name="pageNum" value="{$_REQUEST['pageNum']|default=1}"/>
+	<input type="hidden" name="numPerPage" value="{$numPerPage}"/>
+	<input type="hidden" name="_sort" value="{$_REQUEST['_sort']}"/>
+    <input type="hidden" name="listRows" value="{$_REQUEST['listRows']}"/>
+
+</form>
+<div class="page">
+<div class="pageHeader">
+	<form onsubmit="return navTabSearch(this);" action="__URL__" method="post">
+	<div class="searchBar">
+		<table class="searchContent">
+			<tr>
+				<td>
+					我的客户：<input type="text" name="keyword" />
+				</td>
+
+			</tr>
+		</table>
+		<div class="subBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
+			</ul>
+		</div>
+	
+	</form>
+</div></div>
+<div class="pageContent">
+	<div class="panelBar">
+		<ul class="toolBar">
+			<li><a class="add" href="__URL__/add" target="dialog" width="600" height="300" mask=true maxable=true><span>添加</span></a></li>
+			<!--<li><a class="delete" href="__URL__/foreverdelete/id/{sid_user}/navTabId/__DWZ__" target="ajaxTodo" title="你确定要删除吗？" warn="请选择角色"><span>删除</span></a></li>
+			--><li><a class="edit" href="__URL__/edit/id/{sid_user}" target="dialog" ><span>修改</span></a></li>
+		</ul>
+	</div>
+	<table class="list" width="100%" layoutH="116">
+		<thead>
+			<tr>
+				<th width="80">编码</th>
+				<th width="80">名称</th>
+				<th width="80">序列号</th>
+				<th width="80">状态</th>
+				<th width="80">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name="list" id="vo">
+			<tr target="sid_user" rel="{$vo.id}">
+				<td>{$vo.id}</td>
+				<td>{$vo.name}</td>
+				<td>{$vo.sort}</td>
+				<td>{$vo['status']|getStatus}</td>
+					<td><!--{$vo['status']|showStatus=$vo['id'],'navTabAjaxDone',"__URL__",'__DWZ__'}
+					<a title="删除" target="navTabTodo" href="__URL__/foreverdelete/id/{$vo['id']}/navTabId/__DWZ__" class="btnDel" >删除</a>-->
+					<a title="编辑"  href="__URL__/edit/id/{$vo['id']}" class="btnEdit" target="dialog" mask="true" warn="请选择节点">编辑</a>
+					<a title="权限设置"  href="__URL__/purview/id/{$vo['id']}" target="dialog" mask="true" warn="请选择节点">权限设置</a>
+					</td>
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+	<div class="panelBar">
+		<div class="pages">
+			
+			<span>共{$totalCount}{$Think.get.pageNum}条</span>
+		</div>
+		<div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+
+	</div>
+</div>
+</div>

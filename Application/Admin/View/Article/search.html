@@ -1,0 +1,17 @@
+
+<div class="pageContent">
+	<form method="post" action="__URL__/index/navTabId/__MODULE__" class="pageForm" onsubmit="return navTabDialogSearch(this);">
+		<div class="pageFormContent" layoutH="58">
+			<div class="unit">
+				<label>文章标题：</label>
+					<input type="text" name="title" value="{$_REQUEST.title}" class="title" >
+			</div>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">开始检索</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="reset">清空重输</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+</div>

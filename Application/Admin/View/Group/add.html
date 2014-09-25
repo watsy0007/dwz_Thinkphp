@@ -1,0 +1,47 @@
+
+<div class="page">
+	<div class="pageContent">
+
+	<form method="post" action="__URL__/insert/navTabId/__DWZ__" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxMenu)">
+		<div class="pageFormContent" layoutH="58">
+			<div class="unit">
+				<label>导航：</label>
+				<select name="group_menu">
+					<volist name="groupClass" id="g">
+					<option value="{$g.menu}">{$g.name}</option>
+					</volist>
+				</select>
+			</div>
+			<div class="unit">
+				<label>标识：</label>
+				<input type="text" class="required alphanumeric"  name="name">
+			</div>
+			
+			<div class="unit">
+				<label>显示名称：</label>
+				<input type="text" class="required"   name="title">
+			</div>
+			<div class="unit">
+				<label>状态：</label>
+				<SELECT name="status">
+					<option value="1">启用</option>
+					<option value="0">禁用</option>
+				</SELECT>
+			</div>
+			<div class="unit">
+				<label>顺序：</label>
+				<input   name="sort" type="text" class="required" value="0" size="5"/>
+			</div>
+		</div>
+		
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+	
+	</div>
+</div>
+

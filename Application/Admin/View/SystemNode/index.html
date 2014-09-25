@@ -1,0 +1,72 @@
+<form id="pagerForm" action="__URL__" method="post">
+    <input type="hidden" name="pageNum" value="{$_REQUEST['pageNum']|default=1}"/>
+    <input type="hidden" name="medium" value="{$_REQUEST.medium}"/>
+    <input type="hidden" name="pid" value="{$_REQUEST['pid']}"/>
+    <input type="hidden" name="title" value="{$_REQUEST['title']}"/>
+</form>
+
+<div class="pageHeader">
+    <form onsubmit="return navTabSearch(this);" action="__URL__" method="post">
+        <div class="searchBar">
+            <ul class="searchContent">
+                <li>
+                    <label>名称：</label>
+                    <input type="text" name="name" class="medium" >
+                </li>
+            </ul>
+            <div class="subBar">
+                <ul>
+                    <li><div class="buttonActive"><div class="buttonContent"><button type="submit">查询</button></div></div></li>
+                </ul>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="pageContent">
+    <div class="panelBar">
+        <ul class="toolBar">
+            <li><a class="add" href="__URL__/add" target="dialog" mask="true"><span>新增</span></a></li>
+            <li><a class="delete" href="__URL__/foreverdelete/id/{sid_node}/navTabId/__DWZ__" target="ajaxTodo" calback="navTabAjaxMenu" title="你确定要删除吗？" warn="请选择节点"><span>删除</span></a></li>
+            <li><a class="edit" href="__URL__/edit/id/{sid_node}" target="dialog" mask="true" warn="请选择节点"><span>修改</span></a></li>
+
+            <li><a class="edit" href="__URL__/index/root/1" target="navTab" rel="__DWZ__" title="文件列表"><span>返回根目录</span></a></li>
+        </ul>
+    </div>
+
+
+    <table class="table" width="100%" layoutH="138">
+        <thead>
+        <tr>
+            <th width="60">编号</th>
+            <th width="100" orderField="title" <if condition="$_REQUEST._order eq 'title'">class="{$_REQUEST._sort}"</if>>名称</th>
+            <th width="60">显示名</th>
+            <th width="100">上级</th>
+            <th width="80" orderField="orderIndex" <if condition="$_REQUEST._order eq 'sort'">class="{$_REQUEST._sort}"</if>>序号</th>
+            <th width="100" orderField="status" <if condition="$_REQUEST._order eq 'status'">class="{$_REQUEST._sort}"</if>>状态</th>
+            <th width="100">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <volist id="vo" name="list">
+            <tr target="sid_node" rel="{$vo['id']}">
+                <td>{$vo['id']}</td>
+                <td>{$vo['name']}</td>
+                <td>{$vo['controller']}</td>
+                <td>{$vo.parent.name}</td>
+                <td>{$vo['orderIndex']}</td>
+                <td>{$vo['status']|getStatus}</td>
+                <td>{$vo['status']|showStatus=$vo['id'],'navTabAjaxGroupMenu',"__URL__",'__DWZ__'} <a href="__URL__/edit/id/{$vo['id']}" target="dialog">编辑</a></td>
+            </tr>
+        </volist>
+        </tbody>
+    </table>
+
+    <div class="panelBar">
+        <div class="pages">
+            <span>共{$totalCount}条</span>
+        </div>
+        <div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+    </div>
+</div>
+

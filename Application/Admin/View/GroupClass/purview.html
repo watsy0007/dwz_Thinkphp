@@ -1,0 +1,25 @@
+
+<div class="page">
+	<div class="pageContent">
+	
+	<form action="__URL__/gcUser" method="post" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);"> 
+		<input type="hidden" name="gc_id" VALUE="{$Think.get.id}" />
+		<div class="pageFormContent" layoutH="58">
+			<volist id="item" name="user">
+			<div class="unit">
+				<input type="checkbox" name="uid[]" value="{$item.id}" <?php echo in_array($item['id'], $gcuser[$_GET['id']]) ? "checked" : "" ?>/>{$item.account} --  {$item.nickname}
+			</div>
+			</volist>
+		</div>
+		<div class="formBar">
+			<label style="float:left"><input type="checkbox" class="checkboxCtrl" group="uid[]" />反选</label>
+			<ul>
+			<li><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li>
+			<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+	
+	</div>
+</div>
+

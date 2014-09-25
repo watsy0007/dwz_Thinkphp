@@ -1,0 +1,27 @@
+<div class="page">
+	<div class="layoutBox">
+
+	<form method="post" action="__URL__/saveMoveFiles/navTabId/__DWZ__" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<div class="pageFormContent" layoutH="55">
+		
+			<div class="unit">
+				<label>文件原路径：</label>
+				<input type="text" class="required"  name="filename" value="{$filename}" readonly="readonly" style="width:360px">
+			</div>
+			<div class="unit">
+				<label>文件新路径：</label>
+				<input type="text" name="newpath"  class="required" style="width:360px">
+			</div>
+		</div>
+
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+	
+	</div>
+</div>
+

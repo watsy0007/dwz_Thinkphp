@@ -1,0 +1,145 @@
+<script>
+    function check($obj,$k){
+        var checked=$obj.checked;
+        if(checked){
+            $(".check"+$k).attr('checked',true);
+        }else{
+            $(".check"+$k).attr('checked',false);
+        }
+        home();
+    }
+
+    function checkChild($i){
+        var  checkedLength=$('.check'+$i+':checked').length;
+        if(checkedLength>0){
+            $("#check"+$i).attr('checked',true);
+        }else{
+            $("#check"+$i).attr('checked',false);
+        }
+        home();
+    }
+
+    function home(){
+        var home=$("#home").attr('checked');
+        var  homeCheckedLength=$('[name="node_id[]"]:checked').length;
+        if(homeCheckedLength>0){
+            $("#home").attr('checked',true);
+        }else{
+            $("#home").attr('checked',false);
+        }
+    }
+</script>
+<div class="page" id="__DWZ__AddAccess">
+    <div class="pageContent">
+        <form method="post" action="__URL__/insertAccess" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+            <input type="hidden" name="role_id" value="{$Think.get.groupId}">
+            <input type="hidden" name="resultBox" id="resultBox">
+            <div style="float:left; display:block; margin:10px; overflow:auto; width:98%; height:400px; border:solid 1px #CCC; line-height:21px; background:#FFF;">
+                <ul class="tree treeFolder treeCheck expand" oncheck="__DWZ__kkk">
+                    <li><a tname="nodeid[]" tvalue="0" >root</a>
+                        <ul>
+                            <volist name="nodes" id="node">
+                                <notempty name="node['children']">
+                                    <li><a tname="nodeid[]" tvalue="{$node['id']}"  href="javascript:;">{$node['name']}</a>
+                                        <ul>
+                                            <volist id="item" name="node.children">
+                                                <notempty name="item['children']">
+                                                    <li><a tname="nodeid[]" tvalue="{$item['id']}" href="javascript:;">{$item['name']}</a>
+                                                        <ul>
+                                                            <volist id="subitem" name="item.children">
+                                                                <notempty name="subitem['children']">
+                                                                    <li><a  tname="nodeid[]" tvalue="{$subitem['id']}"  href="javascript:;">{$subitem['name']}</a>
+                                                                        <ul>
+                                                                            <volist id="subitem2" name="subitem.children">
+                                                                                <notempty name="subitem2['children']">
+                                                                                    <li><a tname="nodeid[]" tvalue="{$subitem2['id']}"  href="javascript:;">{$subitem2['name']}</a>
+                                                                                        <ul>
+                                                                                            <volist id="subitem3" name="subitem2.children">
+                                                                                                <notempty name="subitem3['children']">
+                                                                                                    <li><a tname="nodeid[]" tvalue="{$subitem3['id']}" href="javascript:;">{$subitem3['name']}</a>
+                                                                                                        <ul>
+                                                                                                            <volist id="subitem4" name="subitem3.children">
+                                                                                                                <notempty name="subitem4['children']">
+                                                                                                                    <li><a tname="nodeid[]" tvalue="{$subitem4['id']}"  href="javascript:;">{$subitem4['name']}</a>
+                                                                                                                        <ul>
+                                                                                                                            <volist id="subitem5" name="subitem4.children">
+                                                                                                                                <notempty name="subitem5['children']">
+                                                                                                                                    <li><a tname="nodeid[]" tvalue="{$subitem5['id']}" href="javascript:;">{$subitem5['name']}</a>
+                                                                                                                                        <ul>
+                                                                                                                                            <volist id="subitem6" name="subitem5.children">
+                                                                                                                                                <li><a tname="nodeid[]" tvalue="{$subitem6['id']}"  href="javascript:;" rel="{$subitem6.controller}"  <in name="subitem6.id" value="$node_ids">checked="true"</in>>{$subitem6.name}</a></li>
+                                                                                                                                            </volist>
+                                                                                                                                        </ul>
+                                                                                                                                    </li>
+                                                                                                                                    <else/>
+                                                                                                                                    <li><a  tname="nodeid[]" tvalue="{$subitem5.id}" href="javascript:;" rel="{$subitem5.controller}"  <in name="subitem5.id" value="$node_ids">checked="true"</in>>{$subitem5.name}</a></li>
+                                                                                                                                </notempty>
+                                                                                                                            </volist>
+                                                                                                                        </ul>
+                                                                                                                    </li>
+                                                                                                                    <else/>
+                                                                                                                    <li><a tname="nodeid[]" tvalue="{$subitem4.id}" href="javascript:;" rel="{$subitem4.controller}"  <in name="subitem4.id" value="$node_ids">checked="true"</in>>{$subitem4.name}</a></li>
+                                                                                                                </notempty>
+                                                                                                            </volist>
+                                                                                                        </ul>
+                                                                                                    </li>
+                                                                                                    <else/>
+                                                                                                    <li><a tname="nodeid[]" tvalue="{$subitem3.id}" href="javascript:;" rel="{$subitem3.controller}"  <in name="subitem3.id" value="$node_ids">checked="true"</in>>{$subitem3.name}</a></li>
+                                                                                                </notempty>
+                                                                                            </volist>
+                                                                                        </ul>
+                                                                                    </li>
+                                                                                    <else/>
+                                                                                    <li><a tname="nodeid[]" tvalue="{$subitem2.id}"  href="javascript:;"  rel="{$subitem2.controller}"  <in name="subitem2.id" value="$node_ids">checked="true"</in>>{$subitem2.name}</a></li>
+                                                                                </notempty>
+                                                                            </volist>
+                                                                        </ul>
+                                                                    </li>
+                                                                    <else/>
+                                                                    <li><a tname="nodeid[]" tvalue="{$subitem.id}" href="javascript:;" rel="{$subitem.controller}"  <in name="subitem.id" value="$node_ids">checked="true"</in>>{$subitem.name}</a></li>
+                                                                </notempty>
+                                                            </volist>
+                                                        </ul>
+                                                    </li>
+                                                    <else/>
+                                                    <li><a tname="nodeid[]" tvalue="{$item.id}" href="javascript:;" rel="{$item.controller}"  <in name="item.id" value="$node_ids">checked="true"</in>>{$item.name}</a></li>
+                                                </notempty>
+                                            </volist>
+                                        </ul>
+                                    </li>
+                                    <else/>
+                                    <li><a tname="nodeid[]" tvalue="{$node.id}" href="javascript:;" rel="{$node.controller}"  <in name="node.id" value="$node_ids">checked="true"</in>>{$node.name}</a></li>
+                                </notempty>
+                            </volist>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="formBar">
+                <ul>
+                    <li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+                </ul>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    var self = $('#__DWZ__AddAccess');
+    function __DWZ__kkk(){
+        var json = arguments[0], result="";
+        console.log(arguments);
+        $(json.items).each(function(i){
+            console.log(this);
+            if (this.value != 0)
+            {
+                result += "<p>name:"+this.name + " value:"+this.value+"</p>";
+            }
+        });
+        self.find("#resultBox").html(result);
+
+    }
+</script>
+

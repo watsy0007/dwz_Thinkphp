@@ -1,0 +1,47 @@
+<div class="page">
+	<div class="pageContent">
+
+	<form method="post" action="__URL__/update/navTabId/__DWZ__" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxMenu)">
+		<input type="hidden" name="id" value="{$vo.id}" >
+		<div class="pageFormContent" layoutH="58">
+			<div class="unit">
+				<label>导航：</label>
+			<select name="group_menu">
+					<volist name="groupClass" id="g">
+					<option value="{$g.menu}" <eq name="vo.group_menu" value="$g.menu">selected=selected</eq>>{$g.name}</option>
+					</volist>
+				</select>
+					</div>
+			<div class="unit">
+				<label>标识：</label>
+				<input type="text" class="required alphanumeric" value="{$vo.name}"  name="name">
+			</div>
+			
+			<div class="unit">
+				<label>显示名称：</label>
+				<input type="text" class="required"  value="{$vo.title}"  name="title">
+			</div>
+			<div class="unit">
+				<label>状态：</label>
+				<SELECT name="status">
+					<option value="1" <eq name="vo.status" value="1"> selected </eq>>启用</option>
+					<option value="0" <eq name="vo.status" value="0"> selected </eq>>禁用</option>
+				</SELECT>
+			</div>
+			<div class="unit">
+				<label>顺序：</label>
+				<input   name="sort" type="text" class="required" value="{$vo.sort}" size="5"/>
+			</div>
+		</div>
+
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+	
+	</div>
+</div>
+
