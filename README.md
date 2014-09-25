@@ -14,6 +14,15 @@
 1. [dwz官方手册地址][dwz_doc]
 2. [thinkphp官方手册地址][think_php]
 
+
+=======
+###使用帮助
+1. 新建数据库
+2. 导入```/Application/db/dwz_framework.sql```
+3. 修改```/Application/Admin/Conf/config.php```
+和```/Common/Conf/config.php```中数据库连接部分
+4. 访问本地配置url链接
+
 =======
 ###更新说明
 ####version:0.1 
