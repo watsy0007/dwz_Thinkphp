@@ -83,16 +83,24 @@
                 $this->insertTree($value, $values);
             }
 
-            function sortFunc ($a, $b) {
+            function sortFunc (&$a, &$b) {
                 if (is_array($a) && isset($a['children'])) {
-                    usort($a['children'],'sortFunc');
+                    $aChildren = $a['children'];
+                    uasort($aChildren,'sortFunc');
+                    $a['children'] = $aChildren;
                 }
                 if (is_array($b) && isset($b['children'])) {
-                    usort($b['children'],'sortFunc');
+                    $bChildren = $b['children'];
+                    uasort($bChildren,'sortFunc');
+                    $b['children'] = $bChildren;
                 }
-                if ($a['orderIndex'] && isset($b['orderIndex']))
+                if (isset($a['orderIndex']) && isset($b['orderIndex']))
                 {
-                    return $a['orderIndex'] < $b['orderIndex'];
+                    if (intval($a['orderIndex']) == intval($b['orderIndex']))
+                    {
+                        return 0;
+                    }
+                    return intval($a['orderIndex']) > intval($b['orderIndex']) ? -1 : 1;
                 }
                 return 0;
             };
