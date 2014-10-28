@@ -15,6 +15,8 @@ use Think\Model\RelationModel;
 
 class CommonController extends Controller {
 
+    protected $close = true;
+
     function _initialize() {
         // 用户权限检查
         if (C('USER_AUTH_ON') && !in_array(MODULE_NAME, explode(',', C('NOT_AUTH_MODULE')))) {
@@ -59,19 +61,6 @@ class CommonController extends Controller {
         }
     }
 
-    /**
-     * Dwz系统用到参数  ajax赋值扩展
-     * @access protected
-     * @param array $result  引用传值
-     * @author 囚鸟先生
-     * @return void
-     */
-    protected function ajaxAssign(&$result) {
-        $result['statusCode'] = $result['status'];
-        $result['navTabId'] = $_REQUEST['navTabId'];
-        $result['message'] = $result['info'];
-        $result['callbackType'] = 'closeCurrent';
-    }
 
     /**
      * Dwz系统用到参数  ajax赋值扩展 ,继承Controller的ajaxReturn
@@ -473,6 +462,58 @@ class CommonController extends Controller {
                 $this->error($model->getError());
             }
         }
+    }
+
+
+    /**
+     * Dwz系统用到参数  ajax赋值扩展
+     * @access protected
+     * @param array $result  引用传值
+     * @author 囚鸟先生
+     * @return void
+     */
+    protected function ajaxAssign(&$result) {
+        $result['statusCode'] = $result['status'];
+        $result['navTabId'] = $_REQUEST['navTabId'];
+        $result['message'] = $result['info'];
+        if ($this->close) {
+            $result['callbackType'] = 'closeCurrent';
+        }
+    }
+
+    protected function success($message = '', $jumpUrl = '', $ajax = false, $close = true) {
+        $this->close = $close;
+        parent::success($message, $jumpUrl, $ajax);
+    }
+
+    protected function getAccessButton()
+    {
+        $nodeName = CONTROLLER_NAME;
+
+        $nodeModel = D('SystemNode');
+        $data = $nodeModel->where("controller='{$nodeName}'")->find();
+        $nodeId = 0;
+        if ($data)
+        {
+            $nodeId = $data['id'];
+        }
+
+        $userId = $_SESSION[C('USER_AUTH_KEY')];
+        $userLogic = D('SystemRole','Logic');
+        $roleIds = $userLogic->getRoleIDArray($userId);
+
+        $model = D('SystemRoleNodeButton');
+        $where['node_id'] = $nodeId;
+        $where['role_id'] = array('in',array_map(function($item){return $item['role_id'];},$roleIds));
+        $data = $model->relation(true)->where($where)->select();
+
+        $volist = array();
+        foreach($data as $key => $value)
+        {
+            $value['button']['content'] = htmlspecialchars_decode($value['button']['content']);
+            $volist[] = $value;
+        }
+        $this->assign('buttons', $volist);
     }
 
 }

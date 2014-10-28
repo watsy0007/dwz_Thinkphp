@@ -1,0 +1,135 @@
+<script>
+    function check($obj,$k){
+        var checked=$obj.checked;
+        if(checked){
+            $(".check"+$k).attr('checked',true);
+        }else{
+            $(".check"+$k).attr('checked',false);
+        }
+        home();
+    }
+
+    function checkChild($i){
+        var  checkedLength=$('.check'+$i+':checked').length;
+        if(checkedLength>0){
+            $("#check"+$i).attr('checked',true);
+        }else{
+            $("#check"+$i).attr('checked',false);
+        }
+        home();
+    }
+
+    function home(){
+        var home=$("#home").attr('checked');
+        var  homeCheckedLength=$('[name="node_id[]"]:checked').length;
+        if(homeCheckedLength>0){
+            $("#home").attr('checked',true);
+        }else{
+            $("#home").attr('checked',false);
+        }
+    }
+</script>
+<div class="page" id="__DWZ__AddAccess">
+    <div class="pageContent">
+        <div layoutH="66" style="float:left; display:block; overflow:auto; width:240px; border:solid 1px #CCC; line-height:21px; background:#fff">
+            <form method="post" action="__URL__/insertAccess" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+                <input type="hidden" name="role_id" value="{$Think.get.groupId}">
+                <input type="hidden" name="resultBox" id="resultBox">
+
+                <div>
+                    <ul class="tree treeFolder" oncheck="__DWZ__kkk">
+                        <li><a tname="nodeid[]" tvalue="0" >root</a>
+                            <ul>
+                                <volist name="nodes" id="node">
+                                    <notempty name="node['children']">
+                                        <li><a tname="nodeid[]" tvalue="{$node['id']}"  href="javascript:;">{$node['name']}</a>
+                                            <ul>
+                                                <volist id="item" name="node.children">
+                                                    <notempty name="item['children']">
+                                                        <li><a tname="nodeid[]" tvalue="{$item['id']}" href="javascript:;">{$item['name']}</a>
+                                                            <ul>
+                                                                <volist id="subitem" name="item.children">
+                                                                    <notempty name="subitem['children']">
+                                                                        <li><a  tname="nodeid[]" tvalue="{$subitem['id']}"  href="javascript:;">{$subitem['name']}</a>
+                                                                            <ul>
+                                                                                <volist id="subitem2" name="subitem.children">
+                                                                                    <notempty name="subitem2['children']">
+                                                                                        <li><a tname="nodeid[]" tvalue="{$subitem2['id']}"  href="javascript:;">{$subitem2['name']}</a>
+                                                                                            <ul>
+                                                                                                <volist id="subitem3" name="subitem2.children">
+                                                                                                    <notempty name="subitem3['children']">
+                                                                                                        <li><a tname="nodeid[]" tvalue="{$subitem3['id']}" href="javascript:;">{$subitem3['name']}</a>
+                                                                                                            <ul>
+                                                                                                                <volist id="subitem4" name="subitem3.children">
+                                                                                                                    <notempty name="subitem4['children']">
+                                                                                                                        <li><a tname="nodeid[]" tvalue="{$subitem4['id']}"  href="javascript:;">{$subitem4['name']}</a>
+                                                                                                                            <ul>
+                                                                                                                                <volist id="subitem5" name="subitem4.children">
+                                                                                                                                    <notempty name="subitem5['children']">
+                                                                                                                                        <li><a tname="nodeid[]" tvalue="{$subitem5['id']}" href="javascript:;">{$subitem5['name']}</a>
+                                                                                                                                            <ul>
+                                                                                                                                                <volist id="subitem6" name="subitem5.children">
+                                                                                                                                                    <li><a tname="nodeid[]" tvalue="{$subitem6['id']}"  href="__URL__/roleNodeButton/roleId/{$roleId}/nodeId/{$subitem6.id}"  target="ajax" rel="jbsxBox">{$subitem6.name}</a></li>
+                                                                                                                                                </volist>
+                                                                                                                                            </ul>
+                                                                                                                                        </li>
+                                                                                                                                        <else/>
+                                                                                                                                        <li><a  tname="nodeid[]" tvalue="{$subitem5.id}" href="__URL__/roleNodeButton/roleId/{$roleId}/nodeId/{$subitem5.id}"  target="ajax" rel="jbsxBox">{$subitem5.name}</a></li>
+                                                                                                                                    </notempty>
+                                                                                                                                </volist>
+                                                                                                                            </ul>
+                                                                                                                        </li>
+                                                                                                                        <else/>
+                                                                                                                        <li><a tname="nodeid[]" tvalue="{$subitem4.id}" href="__URL__/roleNodeButton/roleId/{$roleId}/nodeId/{$subitem4.id}"  target="ajax" rel="jbsxBox">{$subitem4.name}</a></li>
+                                                                                                                    </notempty>
+                                                                                                                </volist>
+                                                                                                            </ul>
+                                                                                                        </li>
+                                                                                                        <else/>
+                                                                                                        <li><a tname="nodeid[]" tvalue="{$subitem3.id}" href="__URL__/roleNodeButton/roleId/{$roleId}/nodeId/{$subitem3.id}"  target="ajax" rel="jbsxBox">{$subitem3.name}</a></li>
+                                                                                                    </notempty>
+                                                                                                </volist>
+                                                                                            </ul>
+                                                                                        </li>
+                                                                                        <else/>
+                                                                                        <li><a tname="nodeid[]" tvalue="{$subitem2.id}"  href="__URL__/roleNodeButton/roleId/{$roleId}/nodeId/{$subitem2.id}"  target="ajax" rel="jbsxBox">{$subitem2.name}</a></li>
+                                                                                    </notempty>
+                                                                                </volist>
+                                                                            </ul>
+                                                                        </li>
+                                                                        <else/>
+                                                                        <li><a tname="nodeid[]" tvalue="{$subitem.id}" href="__URL__/roleNodeButton/roleId/{$roleId}/nodeId/{$subitem.id}"  target="ajax" rel="jbsxBox">{$subitem.name}</a></li>
+                                                                    </notempty>
+                                                                </volist>
+                                                            </ul>
+                                                        </li>
+                                                        <else/>
+                                                        <li><a tname="nodeid[]" tvalue="{$item.id}" href="__URL__/roleNodeButton/roleId/{$roleId}/nodeId/{$item.id}"  target="ajax" rel="jbsxBox">{$item.name}</a></li>
+                                                    </notempty>
+                                                </volist>
+                                            </ul>
+                                        </li>
+                                        <else/>
+                                        <li><a tname="nodeid[]" tvalue="{$node.id}" href="__URL__/roleNodeButton/roleId/{$roleId}/nodeId/{$node.id}"  target="ajax" rel="jbsxBox">{$node.name}</a></li>
+                                    </notempty>
+                                </volist>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+
+                <!--<div class="formBar">-->
+                    <!--<ul>-->
+                        <!--<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>-->
+                    <!--</ul>-->
+                <!--</div>-->
+            </form>
+        </div>
+
+        <div id="jbsxBox" class="unitBox" style="margin-left:246px;">
+            <!--#include virtual="list1.html" -->
+        </div>
+    </div>
+</div>
+

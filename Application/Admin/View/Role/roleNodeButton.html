@@ -1,0 +1,14 @@
+<form method="post" action="__URL__/insertRoleNodeButton/roleId/{$roleId}/nodeId/{$nodeId}" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+    <div class="pageFormContent" layoutH="98">
+        <volist name="volist" id="vo">
+            <label><input type="checkbox" name="btn[]" value="{$vo.id}" <eq name="vo['check']" value="1"> checked</eq>>{$vo.name}</label>
+        </volist>
+    </div>
+    <div class="formBar">
+        <label style="float:left"><input type="checkbox" class="checkboxCtrl" group="btn[]" />全选</label>
+        <ul>
+            <li><div class="button"><div class="buttonContent"><button type="button" class="checkboxCtrl" group="btn[]" selectType="invert">反选</button></div></div></li>
+            <li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+        </ul>
+    </div>
+</form>

@@ -56,7 +56,10 @@
                 <td>{$vo.parent.name}</td>
                 <td>{$vo['orderIndex']}</td>
                 <td>{$vo['status']|getStatus}</td>
-                <td>{$vo['status']|showStatus=$vo['id'],'navTabAjaxGroupMenu',"__URL__",'__DWZ__'} <a href="__URL__/edit/id/{$vo['id']}" target="dialog">编辑</a></td>
+                <td>{$vo['status']|showStatus=$vo['id'],'navTabAjaxGroupMenu',"__URL__",'__DWZ__'}
+                    <a href="__URL__/edit/id/{$vo['id']}" target="dialog">编辑</a>
+                    <a href="__MODULE__/SystemNodeButton/index/id/{$vo['id']}" target="navTab">功能</a>
+                </td>
             </tr>
         </volist>
         </tbody>

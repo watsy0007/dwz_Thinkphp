@@ -28,4 +28,11 @@ class SystemNodeController extends CommonController {
 
     }
 
+    public function nodeFunction()
+    {
+        $id = $_REQUEST['id'];
+
+        $this->display();
+    }
+
 } 

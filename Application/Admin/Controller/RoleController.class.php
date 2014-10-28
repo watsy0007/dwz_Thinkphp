@@ -404,6 +404,102 @@ class RoleController extends CommonController {
     }
 
 
+    public function nodebutton()
+    {
+        $groupId = I('get.id', 0);
+        $model = D('SystemMenu','Logic');
+        if (method_exists($model, 'getLeftTree'))
+        {
+            $array = $model->getLeftTree(0, true);
+
+            $model = D('SystemNodeRole');
+            if (method_exists($model,'field'))
+            {
+                $node_ids = $model->field('node_id')->where('role_id='.$groupId)->select();
+                $this->node_ids = array_map(function($item){return $item['node_id'];},$node_ids);
+            }
+            $this->assign('nodes', $array);
+        }
+        $this->assign('roleId', $groupId);
+        $this->display();
+    }
+
+    public function roleNodeButton()
+    {
+        $roleId = I('get.roleId', 0);
+        $nodeId = I('get.nodeId', 0);
+
+        $where['role_id'] = $roleId;
+        $where['node_id'] = $nodeId;
+        $model = D('SystemRoleNodeButton');
+
+        $tmpData = $model->where($where)->select();
+        $data = array();
+        foreach($tmpData as $key =>$value)
+        {
+            $data[$value['button_id']] = $value;
+        }
+
+        $nodeButtonModel = D('SystemNodeButton');
+        $tmpData = $nodeButtonModel->where('node_id='.$nodeId)->select();
+
+        $volist = array();
+        foreach($tmpData as $key => $value)
+        {
+            if (in_array($value['id'], array_keys($data)))
+            {
+                $value['check'] = 1;
+            }
+            $volist[] = $value;
+        }
+
+        $this->assign('roleId', $roleId);
+        $this->assign('nodeId', $nodeId);
+        $this->assign('volist', $volist);
+        $this->display();
+    }
+
+    public function insertRoleNodeButton()
+    {
+        $roleId = I('get.roleId', 0);
+        $nodeId = I('get.nodeId', 0);
+
+
+        $where['role_id'] = $roleId;
+        $where['node_id'] = $nodeId;
+        $model = D('SystemRoleNodeButton');
+        $tmpData = $model->where($where)->select();
+        $data = array();
+        foreach($tmpData as $key =>$value)
+        {
+            $data[$value['button_id']] = $value;
+        }
+        foreach($_POST['btn'] as $key => $value)
+        {
+            $where['button_id'] = $value;
+            if(array_key_exists($value, $data))
+            {
+                unset($data[$value]);
+                continue;
+            }
+            if(false !== $model->where($where)->find())
+            {
+                //插入
+                $model->create($where);
+                $model->add();
+            }
+        }
+
+        if (count($data) > 0)
+        {
+            $where['button_id'] = array('in', array_keys($data));
+            $model->where($where)->delete();
+        }
+
+        $this->success('保存成功','',false,false);
+    }
+
+
     public function insertAccess(){
         $role_id=$_POST['role_id'];
         $nodeId = $_POST['nodeid'];

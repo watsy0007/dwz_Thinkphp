@@ -12,4 +12,5 @@ return array(
     'DB_PWD' => '258841679',
     'DB_PORT' => '3306',
     'DB_PREFIX' => 'think_',
+    'DEFAULT_MODULE'    => 'Admin',
 );
