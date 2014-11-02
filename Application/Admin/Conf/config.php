@@ -48,4 +48,8 @@ return array(
 
     'MULTI_MODULE'  => true,
     'MODULE_ALLOW_LIST'     => array('Admin','Default'),
+
+    'TAGLIB_LOAD'       => true,
+    'APP_AUTOLOAD_PATH' => '@.TagLib',
+    'TAGLIB_BUILD_IN'   => 'Cx,Admin\TagLib\TagLibControllerButton',
 );

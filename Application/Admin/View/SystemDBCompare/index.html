@@ -1,0 +1,94 @@
+<include file="Public:pagerForm" />
+
+<div class="pageHeader">
+    <form rel="pagerForm" onsubmit="return navTabSearch(this);" action="__URL__" method="post">
+        <div class="searchBar">
+            <!--<ul class="searchContent">-->
+            <div class="pageFormContent">
+                <p style="width:320px;">
+                    <label>数据库1：</label>
+                    <input type="text" name="DB1" value="{$DB1}"/>
+                </p>
+
+                <p style="width:320px;">
+                    <label>数据库2：</label>
+                    <input type="text" name="DB2" value="{$DB2}"/>
+                </p>
+
+                <p style="width:320px;">
+                    <label>mysql地址：</label>
+                    <input type="text" name="host" value="localhost"/>
+                </p>
+
+                <p style="width:320px;">
+                    <label>账号：</label>
+                    <input type="text" name="user" value="root"/>
+                </p>
+
+                <p style="width:320px;">
+                    <label>密码：</label>
+                    <input type="text" name="pass" value="{$pass}"/>
+                </p>
+                <!--</ul>-->
+            </div>
+            <div class="subBar">
+                <ul>
+                    <li><div class="buttonActive"><div class="buttonContent"><button type="submit">查询</button></div></div></li>
+                </ul>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="pageContent">
+
+
+    <table class="table" width="100%" layoutH="155">
+        <thead>
+        <tr>
+            <th width="100">结构</th>
+            <th width="480">结构名称</th>
+            <th width="100" orderField="account">数据库1</th>
+            <th orderField="nickname">数据库2</th>
+        </tr>
+        </thead>
+        <tbody>
+        <foreach  name="list" item="vo" key="f">
+            <foreach name="vo" item="fields" key="field">
+                <foreach name="fields" item="content" key="ctx">
+                    <tr>
+                        <td>
+                            <present name="content[0]">
+                                <present name="content[1]">
+                                    M
+                                    <else/>
+                                    -
+                                </present>
+                                <else/>
+                                +
+                            </present>
+                        </td>
+                        <td>{$f}  -  {$field}  -  {$ctx}</td>
+                        <td>{$content[0]}</td>
+                        <td>{$content[1]}</td>
+                    </tr>
+                </foreach>
+            </foreach>
+            <tr>
+                <td></td><td></td>
+                <td></td><td></td>
+            </tr>
+            <!--<tr target="sid_user" rel="{$vo['id']}">-->
+            <!--<td>{$vo['id']}</td>-->
+            <!--<td>{$vo['account']}</td>-->
+            <!--<td>{$vo['nickname']}</td>-->
+            <!--</tr>-->
+        </foreach>
+        </tbody>
+    </table>
+
+    <!--<include file="Public:pagerFooter"/>-->
+
+</div>
+
+

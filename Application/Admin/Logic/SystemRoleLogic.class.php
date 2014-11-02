@@ -17,4 +17,10 @@ class SystemRoleLogic extends \Think\Model {
         }
         return array();
     }
+
+
+    public function getRolePureIdArray($userId)
+    {
+        return array_map(function($item){ return $item['role_id'];}, $this->getRoleIDArray($userId));
+    }
 } 
